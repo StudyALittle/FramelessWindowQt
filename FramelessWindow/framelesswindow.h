@@ -56,12 +56,19 @@ class FramelessWindowPrivate;
 class FRAMELESSWINDOW_EXPORT FramelessWindowParams
 {
 public:
+    /// borderRadius：圆角窗口
+    ///     --linux：目前不支持
+    ///     --window：支持；圆角配合背景阴影（setShadowWidth）有瑕疵，borderRadius建议不要大于8
+    ///     --mac：支持
     FramelessWindowParams(QWidget *widget, int borderRadius = 0);
 
     /// 设置标题栏，拖动窗口需要标题栏
     void setTitleBar(QWidget* titlebar);
 
-    /// 设置阴影宽度，为0不绘制阴影（默认为0），linux不支持，window下bug也比较多，不建议设置，mac下默认自带阴影
+    /// 设置阴影宽度，为0不绘制阴影（默认为0）
+    /// --linux：不支持（linux开启系统特效自带阴影）
+    /// --window：设置窗口为圆角时建议设置
+    /// --mac：默认自带阴影
     void setShadowWidth(int w);
 
     /// 设置是否可移动
@@ -81,8 +88,7 @@ public:
     void setBorderColor(const QColor &color);
     void setBorderWidth(int width);
     void setBackgroundImg(const QString &img);
-    /// 设置圆角（windows下bug比较多，不建议使用，linux下不支持）
-//    void setBorderRadius(int radius);
+    // void setBorderRadius(int radius);
 
     QString getBackgroundImg() { return backgroundImg; }
     QColor getBackgroundColor() { return backgroundColor; }
@@ -137,12 +143,14 @@ public:
     FramelessWidget(QWidget *parent = nullptr, int borderRadius = 0);
     virtual ~FramelessWidget() override;
 
+protected:
     bool nativeEvent(const QByteArray &eventType, void *message, NATIVATEEVENTFUNC_3PARAM_TYPE_1 *result) override;
     void paintEvent(QPaintEvent *event) override;
     bool event(QEvent *event) override;
     bool eventFilter(QObject *o, QEvent *e) override;
 
 signals:
+    /// 窗口状态变化（待实现）
     void sigWindowStateChange(bool bMax);
 
 private:

@@ -35,6 +35,14 @@ Widget2::Widget2(QWidget *parent)
     // linux下无背景阴影，建议设置窗口边框
     this->setBorderWidth(1);
 #endif
+
+    ui->widget->setStyleSheet(".QWidget{"
+                              "background-color: rgb(230, 230, 230);"
+#ifndef Q_OS_LINUX
+                              "border-top-left-radius: 8px;"
+                              "border-top-right-radius: 8px;"
+#endif
+                              "}");
 }
 
 Widget2::~Widget2()

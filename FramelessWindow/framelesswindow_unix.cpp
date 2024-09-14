@@ -639,7 +639,6 @@ void FramelessWindowPrivate::paintEventEx(QPaintEvent *event, CBFUNC_PaintEvent 
     }
 
     QPainter painter(m_framelessWidget);
-    //    painter.setRenderHint(QPainter::Antialiasing);
 
     QString bkgImg = m_params->getBackgroundImg();
     int br = m_params->getBorderRadius();
@@ -701,15 +700,8 @@ void FramelessWindowPrivate::paintEventEx(QPaintEvent *event, CBFUNC_PaintEvent 
         painter.setPen(pen);
         painter.drawRoundedRect(rtBorder, br, br);
     }
-
-    // 绘制阴影
-    if (sw) {
-        painter.setRenderHint(QPainter::Antialiasing);
-        painter.setRenderHint(QPainter::SmoothPixmapTransform);
-        drawShadow(&painter, sw, br);
-    }
-
     painter.restore();
+    selfCBFunc(event);
 }
 
 bool FramelessWindowPrivate::eventEx(QEvent *event, CBFUNC_Event selfCBFunc)
@@ -778,49 +770,7 @@ void FramelessWindowPrivate::upMarginsState(bool bMax)
 
 void FramelessWindowPrivate::drawShadow(QPainter *painter, int sw, int br)
 {
-    if (sw <= 0)
-        return;
-
-    int ww = m_framelessWidget->width();
-    int wh = m_framelessWidget->height();
-    QColor color(Qt::darkGray);
-
-    static double bufaa[] = {
-        0.4, 0.26, 0.20, 0.16,
-        0.12, 0.09, 0.06, 0.02
-    };
-    static double bufa[] = {
-        0.20, 0.16, 0.12, 0.09,
-        0.0, 0.0, 0.0, 0.0
-    };
-
-    for(int i = 0; i < sw; i++) {
-        QPainterPath path;
-        path.setFillRule(Qt::WindingFill);
-        // 阴影颜色逐渐变浅色
-        qreal x = sw - i;
-        qreal y = sw -i;
-        qreal w = ww - (sw - i) * 2;
-        qreal h = wh - (sw - i) * 2;
-        //        QRectF rtF(x, y, w, h);
-        path.addRoundedRect(x, y, w, h, br, br);
-        double na = 0.0;
-        if (m_framelessWidget->isActiveWindow()) {
-            if (i >= sizeof (bufaa))
-                na = 0.0;
-            else
-                na = bufaa[i];
-        } else {
-            if (i >= sizeof (bufa))
-                na = 0.0;
-            else
-                na = bufa[i];
-            // na = (136 - sqrt(i) * 55) * 0.6;
-        }
-        color.setAlphaF(na/* < 0 ? 0 : na*/);
-        painter->setPen(color);
-        painter->drawPath(path);
-    }
+    return;
 }
 
 void FramelessWindowPrivate::drawWidgetMgs(int val)
@@ -829,7 +779,8 @@ void FramelessWindowPrivate::drawWidgetMgs(int val)
     if (!layout)
         return;
 
-    int sw = m_params->shadowWidth() ? m_params->shadowWidth() : 0;
+    // 留出绘制边框的宽度
+    int sw = m_params->getBorderWidth(); // m_params->shadowWidth() ? m_params->shadowWidth() : 0;
 
     if (!m_mgs) {
         m_mgs = new QMargins;

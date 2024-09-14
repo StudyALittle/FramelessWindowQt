@@ -310,6 +310,7 @@ void FramelessWindowPrivate::paintEventEx(QPaintEvent *event, CBFUNC_PaintEvent 
     }
 
     painter.restore();
+    selfCBFunc(event);
 }
 
 bool FramelessWindowPrivate::eventEx(QEvent *event, CBFUNC_Event selfCBFunc)

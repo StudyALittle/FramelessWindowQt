@@ -55,6 +55,7 @@ public:
     bool underMouseTitleWidget();
 #endif
 
+    /// 判断pos是否在窗口w上
     static bool underMouse(QWidget *w, const QPoint &pos = QPoint());
 
 signals:
@@ -68,7 +69,9 @@ protected:
     void upMarginsState(bool bMax);
     /// 绘制阴影
     void drawShadow(QPainter *painter, int sw, int br);
+    /// 修改界面主布局器的margins
     void drawWidgetMgs(int val);
+    /// 恢复主布局器的margins
     void restoreMgs();
 
 private:

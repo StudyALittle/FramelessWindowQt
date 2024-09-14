@@ -34,13 +34,6 @@
        <height>60</height>
       </size>
      </property>
-     <property name="styleSheet">
-      <string notr="true">.QWidget{ 
-background-color: rgb(230, 230, 230);
-/*border-top-left-radius: 8px;
-border-top-right-radius: 8px;*/
-}</string>
-     </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="label">
@@ -136,7 +129,8 @@ border-top-right-radius: 8px;*/
          <string/>
         </property>
         <property name="icon">
-         <iconset theme="zoom-in"/>
+         <iconset theme="zoom-in">
+          <normaloff>.</normaloff>.</iconset>
         </property>
        </widget>
       </item>
