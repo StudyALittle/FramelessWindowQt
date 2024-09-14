@@ -5,6 +5,6 @@ CONFIG(debug, debug|release) {
      else: LIB_NAME = $$join(LIB_NAME,,,d)
 }
 
-LIBS += -L$$PWD/../bin -l$$LIB_NAME
+LIBS += -L$$PWD/../../FramelessWQt_bin -l$$LIB_NAME
 
 INCLUDEPATH += $$PWD

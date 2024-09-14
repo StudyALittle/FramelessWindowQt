@@ -1,4 +1,4 @@
-DESTDIR = $$PWD/bin
+DESTDIR = $$PWD/../FramelessWQt_bin
 
 CONFIG(debug, debug|release) {
      unix: TARGET = $$join(TARGET,,,_debug)

@@ -19,7 +19,7 @@ HEADERS += \
     framelesswindow.h \
     framelesswindow_p.h
 
-win {
+win32 {
     SOURCES += framelesswindow_win.cpp
 }
 unix: !macx {

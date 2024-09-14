@@ -5,7 +5,7 @@
 #include <QDialog>
 #include <functional>
 #ifdef Q_OS_WIN
-#include <windows.h>
+#include <Windows.h>
 #include <WinUser.h>
 #include <windowsx.h>
 #include <dwmapi.h>
@@ -49,9 +49,11 @@ public:
     /// event事件处理
     bool eventFilterEx(QObject *o, QEvent *e, CBFUNC_EventFilter selfCBFunc);
 
+#ifdef Q_OS_LINUX
     bool enableMoveWidget();
     bool enableResizeWidget();
     bool underMouseTitleWidget();
+#endif
 
     static bool underMouse(QWidget *w, const QPoint &pos = QPoint());
 

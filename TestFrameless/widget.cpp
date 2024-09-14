@@ -1,18 +1,6 @@
-#include "widget.h"
+﻿#include "widget.h"
 #include "ui_widget.h"
 
-#include <QScreen>
-#ifdef Q_OS_WIN
-#include <windows.h>
-#include <WinUser.h>
-#include <windowsx.h>
-#include <dwmapi.h>
-#include <objidl.h>
-#include <gdiplus.h>
-
-#pragma comment (lib,"Dwmapi.lib")
-#pragma comment (lib,"user32.lib")
-#endif
 #include <QDebug>
 
 Widget::Widget(QWidget *parent)
@@ -42,11 +30,8 @@ void Widget::on_pushButtonMax_clicked()
 {
     if (this->isMaximized())
         this->showNormal();
-    else {
-        // HWND hwnd = (HWND)this->winId();
-        // ShowWindow(hwnd, SW_MAXIMIZE);
+    else
         this->showMaximized();
-    }
 }
 
 void Widget::on_pushButtonMin_clicked()
@@ -54,11 +39,8 @@ void Widget::on_pushButtonMin_clicked()
     this->showMinimized();
 }
 
-
 void Widget::on_pushButton_2_clicked()
 {
-//    qDebug() << "SS: " << this->screen()->size();
-//    qDebug() << "WS: " << this->rect();
-//    qDebug() << "WS2: " << ui->widget->size();
+
 }
 

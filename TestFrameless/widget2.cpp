@@ -51,9 +51,8 @@ void Widget2::on_pushButtonMax_clicked()
 {
     if (this->isMaximized())
         this->showNormal();
-    else {
+    else
         this->showMaximized();
-    }
 }
 
 void Widget2::on_pushButtonClose_clicked()
